@@ -1,5 +1,4 @@
 import { io, Socket } from 'socket.io-client';
-import https from 'https';
 import { oostoTokenManager } from './oosto-token.manager';
 import { env } from '../../config/env';
 
@@ -8,17 +7,20 @@ class OostoSocketService {
 
     public async connect() {
         const token = await oostoTokenManager.getValidToken();
+        const path = '/bt/api/socket.io';
 
-        console.log('🔌 Conectando a Oosto Socket...');
+        console.log('🔌 Conectando Socket Oosto...');
 
-        this.socket = io(env.oostoApiUrl, {
-            path: '/socket.io/',
+        this.socket = io(env.oostoUrlImagen, {
+            path: path,
             query: {
                 token
             },
             transports: ['websocket'],
             rejectUnauthorized: !env.oostoAllowSelfSigned,
-            reconnection: true
+            reconnection: true,
+            reconnectionAttempts: 10,
+            reconnectionDelay: 3000
         });
 
         this.registerEvents();
@@ -28,29 +30,22 @@ class OostoSocketService {
         if (!this.socket) return;
 
         this.socket.on('connect', () => {
-            console.log('✅ Socket conectado a Oosto');
+            console.log('✅ Connect to socket');
             console.log('Socket ID:', this.socket?.id);
         });
 
         this.socket.on('recognition:created', (data) => {
-            console.log('🎯 HIT DETECTADO');
+            console.log('🎯 Recognition created');
             console.log(JSON.stringify(data, null, 2));
         });
 
-        this.socket.on('disconnect', (reason) => {
-            console.log('⚠️ Socket desconectado:', reason);
+        this.socket.on('connect_error', (error: any) => {
+            console.error('❌ Error socket:', error.message);
+            console.error('Descripción:', error.description);
         });
 
-        this.socket.on('connect_error', (err: any) => {
-            console.error('❌ Error socket:', err.message);
-
-            if (err.description) {
-                console.error('Descripción:', err.description);
-            }
-
-            if (err.context) {
-                console.error('Contexto:', err.context);
-            }
+        this.socket.on('disconnect', (reason) => {
+            console.warn('⚠️ Socket desconectado:', reason);
         });
     }
 }
