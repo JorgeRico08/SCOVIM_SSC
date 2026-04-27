@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+    
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+pre {
+  margin-top: 20px;
+  padding: 16px;
+  background: #020617;
+  border-radius: 8px;
+  overflow: auto;
+}
+
+
+/* 🔵 Banner */
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #062A5E;
+    padding: 10px 20px;
+    border-bottom: 3px solid #111827;
+}
+
+/* Izquierda y derecha */
+.banner-left img,
+.banner-right img {
+    height: 70px;
+}
+
+/* Centro */
+.banner-center {
+    text-align: center;
+}
+
+.banner-center h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #fff;
+}
+
+.banner-center p {
+    margin: 2px 0;
+    font-size: 14px;
+}
+
+/* Contenido */
+.contenido {
+    padding: 20px;
+}
+
+
+/* 🟣 Página de inicio */
+.inicio-home {
+    text-align: center;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    height: 100%;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}

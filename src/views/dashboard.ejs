@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/public/css/dashboar-style.css">
+</head>
+
+<body>
+    <h3 class="inicio-home">
+        <%= title %>
+    </h3>
+    <div class="scovim-dashboard">
+
+        <section class="dashboard-main">
+
+            <div class="cameras-section">
+
+                <div class="camera-card">
+                    <div class="camera-header">
+                        <span>Cámara 01</span>
+                        <button onclick="abrirModalCamara('camara-01')">Ver completa</button>
+                    </div>
+                    <div class="camera-stream" id="camara-01">
+                        STREAMING RTSP / OOSTO
+                    </div>
+                </div>
+
+                <div class="camera-card">
+                    <div class="camera-header">
+                        <span>Cámara 02</span>
+                        <button onclick="abrirModalCamara('camara-02')">Ver completa</button>
+                    </div>
+                    <div class="camera-stream" id="camara-02">
+                        STREAMING RTSP / OOSTO
+                    </div>
+                </div>
+
+                <div class="camera-card">
+                    <div class="camera-header">
+                        <span>Cámara 03</span>
+                        <button onclick="abrirModalCamara('camara-03')">Ver completa</button>
+                    </div>
+                    <div class="camera-stream" id="camara-03">
+                        STREAMING RTSP / OOSTO
+                    </div>
+                </div>
+
+                <div class="camera-card">
+                    <div class="camera-header">
+                        <span>Cámara 04</span>
+                        <button onclick="abrirModalCamara('camara-04')">Ver completa</button>
+                    </div>
+                    <div class="camera-stream" id="camara-04">
+                        STREAMING RTSP / OOSTO
+                    </div>
+                </div>
+
+            </div>
+
+            <aside class="hits-panel">
+                <h2>Sujetos detectados</h2>
+
+                <div id="hitsContainer" class="hits-list">
+                    <p class="empty-hits">Esperando detecciones de Oosto...</p>
+                </div>
+            </aside>
+
+        </section>
+
+    </div>
+
+    <div id="modalCamara" class="modal-camara">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitulo">Vista completa</h2>
+                <button onclick="cerrarModalCamara()">Cerrar</button>
+            </div>
+
+            <div id="modalStream" class="modal-stream">
+                STREAMING COMPLETO
+            </div>
+        </div>
+    </div>
+
+    <script src="/public/js/main.js"></script>
+
+</body>
+
+</html>
