@@ -7,7 +7,7 @@
     <title>
         <%= title %>
     </title>
-    <link rel="stylesheet" href="/public/css/dashboar-style.css">
+    <link rel="stylesheet" href="/public/css/dashboard-style.css">
 </head>
 
 <body>
@@ -18,48 +18,7 @@
 
         <section class="dashboard-main">
 
-            <div class="cameras-section">
-
-                <div class="camera-card">
-                    <div class="camera-header">
-                        <span>Cámara 01</span>
-                        <button onclick="abrirModalCamara('camara-01')">Ver completa</button>
-                    </div>
-                    <div class="camera-stream" id="camara-01">
-                        STREAMING RTSP / OOSTO
-                    </div>
-                </div>
-
-                <div class="camera-card">
-                    <div class="camera-header">
-                        <span>Cámara 02</span>
-                        <button onclick="abrirModalCamara('camara-02')">Ver completa</button>
-                    </div>
-                    <div class="camera-stream" id="camara-02">
-                        STREAMING RTSP / OOSTO
-                    </div>
-                </div>
-
-                <div class="camera-card">
-                    <div class="camera-header">
-                        <span>Cámara 03</span>
-                        <button onclick="abrirModalCamara('camara-03')">Ver completa</button>
-                    </div>
-                    <div class="camera-stream" id="camara-03">
-                        STREAMING RTSP / OOSTO
-                    </div>
-                </div>
-
-                <div class="camera-card">
-                    <div class="camera-header">
-                        <span>Cámara 04</span>
-                        <button onclick="abrirModalCamara('camara-04')">Ver completa</button>
-                    </div>
-                    <div class="camera-stream" id="camara-04">
-                        STREAMING RTSP / OOSTO
-                    </div>
-                </div>
-
+            <div class="cameras-section" id="camerasContainer">
             </div>
 
             <aside class="hits-panel">
@@ -87,6 +46,19 @@
         </div>
     </div>
 
+    <div id="modalImagenesHit" class="modal-camara">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalImagenesTitulo">Imágenes del hit</h2>
+                <button onclick="cerrarModalImagenesHit()">Cerrar</button>
+            </div>
+
+            <div id="modalImagenesBody" class="modal-images-body"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="/public/js/main.js"></script>
 
 </body>

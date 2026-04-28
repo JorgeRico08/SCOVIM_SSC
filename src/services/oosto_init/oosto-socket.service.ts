@@ -1,6 +1,8 @@
 import { io, Socket } from 'socket.io-client';
 import { oostoTokenManager } from './oosto-token.manager';
 import { env } from '../../config/env';
+import { realtimeService } from '../realtime.service';
+import { mapOostoHitToView } from '../../common/mappers/oosto-hit.mapper';
 
 class OostoSocketService {
     private socket: Socket | null = null;
@@ -36,7 +38,13 @@ class OostoSocketService {
 
         this.socket.on('recognition:created', (data) => {
             console.log('🎯 Recognition created');
-            console.log(JSON.stringify(data, null, 2));
+            const hits = Array.isArray(data) ? data : [data];
+
+            hits.forEach(hit => {
+                const hitMapped = mapOostoHitToView(hit);
+
+                realtimeService.emitRecognition(hitMapped);
+            });
         });
 
         this.socket.on('connect_error', (error: any) => {

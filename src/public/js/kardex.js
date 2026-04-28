@@ -1,10 +1,14 @@
+document.addEventListener('DOMContentLoaded', () => {
+  datosOostoDetenidos();
+});
+
 async function datosOostoDetenidos() {
   try {
-    const response = await fetch('/api/hits/datos-oosto');
+    const response = await fetch(`/api/hits/datos-oosto/${iidOosto}`);
     const data = await response.json();
 
     const imageUrl = data?.aData?.image?.url;
-    
+
     if (imageUrl) {
       document.getElementById('imgDetenido').src = `/api/hits/image?url=${encodeURIComponent(imageUrl)}`;
     } else {
@@ -17,7 +21,3 @@ async function datosOostoDetenidos() {
     console.error('Error al obtener datos:', error);
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  datosOostoDetenidos();
-});

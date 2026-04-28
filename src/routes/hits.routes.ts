@@ -1,6 +1,6 @@
 import { Router } from 'express';
 // import { getHits } from '../controllers/hits.controller';
-import { getImage, getToken } from '../controllers/oosto_auth.controller';
+import { getImage, getDataOosto } from '../controllers/oosto_auth.controller';
 
 const router = Router();
 
@@ -8,6 +8,7 @@ const router = Router();
 // VER IMAGENES DE OOSTO FRONT
 // routes
 router.get('/image', getImage);
-router.get('/datos-oosto', getToken);
+// Ver datos del detenido
+router.get('/datos-oosto/:iidoosto', getDataOosto);
 
 export default router;

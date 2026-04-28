@@ -14,9 +14,11 @@ router.get('/streaming', (req, res) => {
     });
 });
 
-router.get('/kardex', (req, res) => {
+router.get('/kardex/:iidoosto', (req, res) => {
+    const { iidoosto } = req.params;
     res.render('kardex', {
-        title: 'Kardex del Sujeto'
+        title: 'Kardex del Sujeto',
+        iidOosto: iidoosto
     });
 });
 

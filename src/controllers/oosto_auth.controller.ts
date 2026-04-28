@@ -6,9 +6,13 @@ import axios from 'axios';
 import https from 'https';
 import { env } from '../config/env';
 
-export const getToken = async (req: Request, res: Response) => {
+export const getDataOosto = async (req: Request, res: Response) => {
     try {
-        const helpInit = await obtenerHitsOosto();
+
+        const { iidoosto } = req.params;
+        var sfolioOosto = iidoosto.toString();
+
+        const helpInit = await obtenerHitsOosto(sfolioOosto);
 
         return res
             .status(200)
