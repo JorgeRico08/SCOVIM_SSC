@@ -1,15 +1,105 @@
-<div>
-    <h3>
-        <%= title %>
-    </h3>
+<link rel="stylesheet" href="/public/css/kardex.css">
+<div class="kardex-page">
+
     <script>
         const iidOosto = "<%= iidOosto %>";
     </script>
 
+    <section class="kardex-header">
+        <div class="kardex-photo-box">
+            <img id="imgDetenido" src="/public/img/no-image.png" alt="Imagen detenido">
+        </div>
 
-    <!-- Lista de datos de Oosto -->
-    <img id="imgDetenido" src="" alt="Imagen detenido" width="200" height="200">
-    <br>
-    <pre id="resultado"></pre>
-    <script src="/public/js/kardex.js"></script>
+        <div class="kardex-main-info">
+            <h2 id="nombreDetenido">Cargando detenido...</h2>
+
+            <div class="kardex-badges">
+                <!-- <span id="estatusOosto" class="badge-kardex warning">Validando Oosto</span> -->
+                <span id="totalDetenciones" class="badge-kardex danger">0 detenciones</span>
+            </div>
+
+            <div class="general-grid">
+                <!-- <div>
+                    <label>ID Oosto</label>
+                    <strong id="idOosto">
+                        <%= iidOosto %>
+                    </strong>
+                </div> -->
+
+                <div>
+                    <label>Alias</label>
+                    <strong id="aliasDetenido">N/A</strong>
+                </div>
+
+                <div>
+                    <label>Edad</label>
+                    <strong id="edadDetenido">N/A</strong>
+                </div>
+
+                <div>
+                    <label>Sexo</label>
+                    <strong id="sexoDetenido">N/A</strong>
+                </div>
+
+                <div>
+                    <label>Última detección</label>
+                    <strong id="ultimaDeteccion">N/A</strong>
+                </div>
+
+                <!-- <div>
+                    <label>Score Oosto</label>
+                    <strong id="scoreOosto">N/A</strong>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <section class="kardex-section">
+        <div class="section-title">
+            <h3>Datos generales</h3>
+        </div>
+
+        <div class="info-panel">
+            <div>
+                <label>Nombre completo</label>
+                <strong id="nombreCompleto">N/A</strong>
+            </div>
+
+            <div>
+                <label>Domicilio</label>
+                <strong id="domicilio">N/A</strong>
+            </div>
+
+            <div>
+                <label>Ocupación</label>
+                <strong id="ocupacion">N/A</strong>
+            </div>
+
+            <div>
+                <label>Escolaridad</label>
+                <strong id="escolaridad">N/A</strong>
+            </div>
+
+            <div>
+                <label>Observaciones</label>
+                <strong id="observaciones">N/A</strong>
+            </div>
+        </div>
+    </section>
+
+    <section class="kardex-section">
+        <div class="section-title">
+            <h3>Historial de detenciones</h3>
+            <span id="contadorDetenciones">0 registros</span>
+        </div>
+
+        <div id="detencionesContainer" class="detenciones-list">
+            <div class="empty-detenciones">
+                Cargando detenciones...
+            </div>
+        </div>
+    </section>
+
 </div>
+
+<script src="/public/js/kardex.js"></script>

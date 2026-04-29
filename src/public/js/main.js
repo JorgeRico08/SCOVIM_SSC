@@ -24,6 +24,17 @@ function inicializarSocketDashboard() {
 
   dashboardSocket.on('recognition:created', (hit) => {
     console.log('Nuevo hit en dashboard:', hit);
+
+    /*
+    const score = hit?.score ?? 0;
+    // VALIDACIÓN DE SCORE (ACTIVAR CUANDO QUIERAS FILTRAR)
+    const SCORE_MINIMO = 0.45; // ajusta según tu operación real
+    if (score < SCORE_MINIMO) {
+      console.warn(`❌ Hit descartado por bajo score: ${score}`);
+      return;
+    }
+    */
+
     agregarHitEnVivo(hit);
   });
 
