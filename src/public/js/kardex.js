@@ -18,46 +18,42 @@ async function cargarKardex() {
 }
 
 function pintarDatosGenerales(data) {
-  const sujetoOosto = data || {};
-  const detenido = data?.detenido?.image?.url || {};
-  
+  const oosto = data?.dataOosto || {};
+  const resumen = data?.resumen || {};
+
   const imageUrl =
-  data?.image?.url ||
-  '/public/img/no-image.png';
-  
+    oosto?.imageUrl ||
+    oosto?.detectionImage ||
+    '/public/img/no_imagen.jpg';
+
   const imageProxy = imageUrl.startsWith('/storage')
     ? `/api/hits/image?url=${encodeURIComponent(imageUrl)}`
     : imageUrl;
 
   document.getElementById('imgDetenido').src = imageProxy;
 
-  setText('nombreDetenido', detenido.nombreCompleto || sujetoOosto.name || 'Sujeto detectado');
-  // setText('idOosto', iidOosto);
-  setText('aliasDetenido', detenido.alias || 'N/A');
-  setText('edadDetenido', detenido.edad || 'N/A');
-  setText('sexoDetenido', detenido.sexo || 'N/A');
-  setText('ultimaDeteccion', formatoFecha(sujetoOosto.ultimaDeteccion));
-  // setText('scoreOosto', sujetoOosto.score ? Number(sujetoOosto.score).toFixed(3) : 'N/A');
+  setText('nombreDetenido', data?.nombreCompleto || oosto?.nombreOosto || 'Sujeto detectado');
+  setText('aliasDetenido', data?.alias || 'N/A');
+  setText('edadDetenido', data?.edad || 'N/A');
+  setText('sexoDetenido', data?.sexo || 'N/A');
+  setText('fechaNacimiento', formatoFecha(data?.fechaNacimiento || 'N/A'));
+  setText('ultimaDeteccion', formatoFecha(resumen?.ultimaDetencion?.fecha));
 
-  setText('nombreCompleto', detenido.nombreCompleto || 'N/A');
-  setText('curp', detenido.curp || 'N/A');
-  setText('domicilio', detenido.domicilio || 'N/A');
-  setText('ocupacion', detenido.ocupacion || 'N/A');
-  setText('escolaridad', detenido.escolaridad || 'N/A');
-  setText('observaciones', detenido.observaciones || 'N/A');
+  setText('nombreCompleto', data?.nombreCompleto || 'N/A');
+  setText('domicilio', data?.domicilio || 'N/A');
+  setText('origen', data?.origen || 'N/A');
+  setText('estadoCivil', data?.estadoCivil || 'N/A');
+  setText('conyuge', data?.conyuge || 'N/A');
+  setText('ingresoSemanal', formatoMoneda(data?.ingresoSemanal));
+  setText('escolaridad', data?.gradoEstudios || 'N/A');
+  setText('observaciones', `Cámara: ${oosto?.camera || 'N/A'} | Confianza: ${formatearScore(oosto?.score)}`);
 
-  const total = data?.detenciones?.length || 0;
+  setText('contadorDetenciones', `${resumen?.total || 0} registros`);
 
-  setText('totalDetenciones', `${total} detenciones`);
-  setText('contadorDetenciones', `${total} registros`);
-
-  const estatus = document.getElementById('estatusOosto');
-  if (estatus) {
-    estatus.textContent = sujetoOosto?.name ? 'Identificado por Oosto' : 'Sin información Oosto';
-    estatus.className = sujetoOosto?.name
-      ? 'badge-kardex success'
-      : 'badge-kardex warning';
-  }
+  setText('totalDetenciones', `${resumen?.total || 0} detenciones totales`);
+  setText('faltasAdministrativas', `${resumen?.faltasAdministrativas || 0} faltas administrativas`);
+  setText('puestasDisposicion', `${resumen?.puestasDisposicion || 0} puestas a disposición`);
+  setText('depositos', `${resumen?.depositos || 0} depósitos`);
 }
 
 function pintarDetenciones(detenciones) {
@@ -81,35 +77,23 @@ function pintarDetenciones(detenciones) {
     card.className = 'detencion-card';
 
     card.innerHTML = `
-      <div class="detencion-index">
-        #${index + 1}
-      </div>
+      <div class="detencion-index">#${index + 1}</div>
 
       <div class="detencion-content">
         <div class="detencion-top">
-          <h4>${item.tipoEvento || 'Evento no especificado'}</h4>
-          <span>${formatoFecha(item.fecha)}</span>
+          <h4>${item.tipoIngreso || 'Evento no especificado'}</h4>
+          <span>${formatoFechaHora(item.fecha, item.horaArribo)}</span>
         </div>
 
         <div class="detencion-grid">
           <div>
-            <label>Folio remisión</label>
-            <strong>${item.folioRemision || 'N/A'}</strong>
+            <label>Hora arribo</label>
+            <strong>${item.horaArribo || 'N/A'}</strong>
           </div>
 
           <div>
-            <label>Hora ingreso</label>
-            <strong>${item.horaIngreso || 'N/A'}</strong>
-          </div>
-
-          <div>
-            <label>Motivo / Falta</label>
-            <strong>${item.motivo || 'N/A'}</strong>
-          </div>
-
-          <div>
-            <label>Fundamento</label>
-            <strong>${item.fundamento || 'N/A'}</strong>
+            <label>Agencia presenta</label>
+            <strong>${item.agenciaPresenta || 'N/A'}</strong>
           </div>
 
           <div>
@@ -118,14 +102,19 @@ function pintarDetenciones(detenciones) {
           </div>
 
           <div>
-            <label>Elemento</label>
-            <strong>${item.elemento || 'N/A'}</strong>
+            <label>Tipo ingreso</label>
+            <strong>${item.tipoIngreso || 'N/A'}</strong>
           </div>
+
+          <!-- <div>
+            <label>Fuente</label>
+            <strong>${item.fuente || 'N/A'}</strong>
+          </div> -->
         </div>
 
         <div class="detencion-desc">
-          <label>Descripción / Hechos</label>
-          <p>${item.descripcion || 'Sin descripción registrada.'}</p>
+          <label>Motivo de detención</label>
+          <p>${item.motivoDetencion || 'Sin motivo registrado.'}</p>
         </div>
       </div>
     `;
@@ -140,7 +129,7 @@ function setText(id, value) {
 }
 
 function formatoFecha(value) {
-  if (!value) return 'N/A';
+  if (!value || value === 'N/A') return 'N/A';
 
   const date = new Date(value);
 
@@ -149,8 +138,32 @@ function formatoFecha(value) {
   return date.toLocaleString('es-MX', {
     year: 'numeric',
     month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit'
+    day: '2-digit'
+  });
+}
+
+function formatoFechaHora(fecha, hora) {
+  if (!fecha || fecha === 'N/A') return 'N/A';
+
+  if (!hora || hora === 'N/A') {
+    return formatoFecha(fecha);
+  }
+
+  return formatoFecha(`${fecha}T${hora}`);
+}
+
+function formatearScore(score) {
+  const value = Number(score);
+  if (Number.isNaN(value)) return 'N/A';
+  return `${(value * 100).toFixed(1)}%`;
+}
+
+function formatoMoneda(value) {
+  const number = Number(value);
+  if (Number.isNaN(number)) return 'N/A';
+
+  return number.toLocaleString('es-MX', {
+    style: 'currency',
+    currency: 'MXN'
   });
 }

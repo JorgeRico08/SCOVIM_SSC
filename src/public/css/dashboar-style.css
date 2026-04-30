@@ -520,3 +520,59 @@
   background: #000;
   display: block;
 }
+
+.hit-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-hit {
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all .2s ease;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.btn-hit.subtle {
+  background: rgba(96, 165, 250, .08);
+  color: #93c5fd;
+  border-color: rgba(96, 165, 250, .25);
+}
+
+.btn-hit.subtle:hover {
+  background: rgba(96, 165, 250, .18);
+}
+
+.btn-hit.primary {
+  background: rgba(250, 204, 21, .13);
+  color: #facc15;
+  border-color: rgba(250, 204, 21, .35);
+}
+
+.btn-hit.primary:hover {
+  background: rgba(250, 204, 21, .25);
+}
+
+.score {
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.score.alto {
+  color: #22c55e; /* verde */
+}
+
+.score.medio {
+  color: #facc15; /* amarillo */
+}
+
+.score.bajo {
+  color: #ef4444; /* rojo */
+}

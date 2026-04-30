@@ -5,6 +5,9 @@ import { oostoTokenManager } from '../services/oosto_init/oosto-token.manager';
 import axios from 'axios';
 import https from 'https';
 import { env } from '../config/env';
+import { getKardexDelictivo } from '../repositories/detenido.repository';
+import { mapKardexOosto } from '../models/Oosto.kardex.model';
+import { KardexDetenidoDTO } from '../models/Kardex.model';
 
 export const getDataOosto = async (req: Request, res: Response) => {
     try {
@@ -12,11 +15,21 @@ export const getDataOosto = async (req: Request, res: Response) => {
         const { iidoosto } = req.params;
         var sfolioOosto = iidoosto.toString();
 
-        const helpInit = await obtenerHitsOosto(sfolioOosto);
+        const kardexOostoRaw = await obtenerHitsOosto(sfolioOosto);
+        const kardexOosto = mapKardexOosto(kardexOostoRaw);
+
+        const aRegistro = await getKardexDelictivo(sfolioOosto);
+        if (!aRegistro || aRegistro.length === 0) {
+            return res.status(404).json(
+                ResponseDTO.error('No se encontraron datos para esta detención')
+            );
+        }
+
+        const aDatos = new KardexDetenidoDTO(aRegistro, kardexOosto);
 
         return res
             .status(200)
-            .json(ResponseDTO.ok(helpInit, 'Consulta realizada correctamente'));
+            .json(ResponseDTO.ok(aDatos, 'Consulta realizada correctamente'));
 
     } catch (error) {
         console.error('Error al consultar Oosto:', error);

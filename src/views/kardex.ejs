@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/public/css/kardex.css">
+
 <div class="kardex-page">
 
     <script>
@@ -7,25 +8,20 @@
 
     <section class="kardex-header">
         <div class="kardex-photo-box">
-            <img id="imgDetenido" src="/public/img/no-image.png" alt="Imagen detenido">
+            <img id="imgDetenido" src="/public/img/no_imagen.jpg" alt="Imagen detenido">
         </div>
 
         <div class="kardex-main-info">
             <h2 id="nombreDetenido">Cargando detenido...</h2>
 
             <div class="kardex-badges">
-                <!-- <span id="estatusOosto" class="badge-kardex warning">Validando Oosto</span> -->
                 <span id="totalDetenciones" class="badge-kardex danger">0 detenciones</span>
+                <span id="faltasAdministrativas" class="badge-kardex warning">Faltas administrativas</span>
+                <span id="puestasDisposicion" class="badge-kardex warning">Puestas a disposición</span>
+                <span id="depositos" class="badge-kardex warning">Depósitos</span>
             </div>
 
             <div class="general-grid">
-                <!-- <div>
-                    <label>ID Oosto</label>
-                    <strong id="idOosto">
-                        <%= iidOosto %>
-                    </strong>
-                </div> -->
-
                 <div>
                     <label>Alias</label>
                     <strong id="aliasDetenido">N/A</strong>
@@ -40,16 +36,6 @@
                     <label>Sexo</label>
                     <strong id="sexoDetenido">N/A</strong>
                 </div>
-
-                <div>
-                    <label>Última detección</label>
-                    <strong id="ultimaDeteccion">N/A</strong>
-                </div>
-
-                <!-- <div>
-                    <label>Score Oosto</label>
-                    <strong id="scoreOosto">N/A</strong>
-                </div> -->
             </div>
         </div>
     </section>
@@ -61,8 +47,8 @@
 
         <div class="info-panel">
             <div>
-                <label>Nombre completo</label>
-                <strong id="nombreCompleto">N/A</strong>
+                <label>Fecha de Nacimiento</label>
+                <strong id="fechaNacimiento">N/A</strong>
             </div>
 
             <div>
@@ -71,8 +57,23 @@
             </div>
 
             <div>
-                <label>Ocupación</label>
-                <strong id="ocupacion">N/A</strong>
+                <label>Origen</label>
+                <strong id="origen">N/A</strong>
+            </div>
+
+            <div>
+                <label>Estado civil</label>
+                <strong id="estadoCivil">N/A</strong>
+            </div>
+
+            <div>
+                <label>Cónyuge</label>
+                <strong id="conyuge">N/A</strong>
+            </div>
+
+            <div>
+                <label>Ingreso semanal</label>
+                <strong id="ingresoSemanal">N/A</strong>
             </div>
 
             <div>
@@ -81,8 +82,12 @@
             </div>
 
             <div>
-                <label>Observaciones</label>
+                <label>Observaciones Oosto</label>
                 <strong id="observaciones">N/A</strong>
+            </div>
+            <div>
+                <label>Última detección</label>
+                <strong id="ultimaDeteccion">N/A</strong>
             </div>
         </div>
     </section>

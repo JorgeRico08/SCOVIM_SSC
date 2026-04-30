@@ -34,10 +34,15 @@ pre {
     border-bottom: 3px solid #111827;
 }
 
-/* Izquierda y derecha */
-.banner-left img,
+/* izquierda */
+.banner-left img{
+    height: 100px;
+}
+
+
+/* derecha */
 .banner-right img {
-    height: 70px;
+    height: 90px;
 }
 
 /* Centro */

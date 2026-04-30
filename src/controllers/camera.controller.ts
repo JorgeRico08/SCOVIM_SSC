@@ -17,22 +17,22 @@ const camaras = [
         rtsp: 'rtsp://admin:C4ms3p2023*@192.168.105.11:554/media/video1',
         estado: 1
     },
-    {
-        id: 'camara-02',
-        nombre: 'Cámara 02',
-        rtsp: 'rtsp://admin:admin1234_@172.30.30.4:554/unicast/c2/s2/live',
-        estado: 0
-    },
-    /*{
-        id: 'camara-03',
-        nombre: 'Cámara 03',
-        rtsp: 'rtsp://usuario:password@192.168.1.103:554/stream'
-    },
+    // {
+    //     id: 'camara-02',
+    //     nombre: 'Cámara 02',
+    //     rtsp: 'rtsp://admin:admin1234.@192.168.1.10:554/unicast/c2/s2/live',
+    //     estado: 0
+    // },
+    // {
+    //     id: 'camara-03',
+    //     nombre: 'Cámara 03',
+    //     rtsp: 'rtsp://admin:admin1234.@192.168.1.11:554/unicast/c2/s2/live'
+    // },
     {
         id: 'camara-04',
         nombre: 'Cámara 04',
-        rtsp: 'rtsp://usuario:password@192.168.1.104:554/stream'
-    }*/
+        rtsp: 'rtsp://admin:admin1234.@192.168.1.13:554/unicast/c2/s2/live'
+    }
 ];
 
 //const streamsIniciados = new Set<string>();

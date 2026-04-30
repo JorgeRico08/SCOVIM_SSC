@@ -222,3 +222,36 @@
     grid-template-columns: 1fr;
   }
 }
+
+.detenciones-list {
+  max-height: 430px;
+  overflow-y: auto;
+  padding-right: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.detenciones-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.detenciones-list::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.7);
+  border-radius: 999px;
+}
+
+.detenciones-list::-webkit-scrollbar-thumb {
+  background: #facc15;
+  border-radius: 999px;
+}
+
+.detenciones-list::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
+}
+
+.kardex-section:last-of-type {
+  max-height: 560px;
+  overflow: hidden;
+}

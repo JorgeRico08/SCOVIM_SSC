@@ -61,7 +61,12 @@ function agregarHitEnVivo(hit) {
   const camara = hit?.camera?.title || 'Sin cámara';
   const score = hit?.score ?? 'N/A';
 
-const images = Array.isArray(hit?.images) ? hit.images : [];
+  const scoreNumber = Number(score);
+  const scorePercent = !isNaN(scoreNumber)
+    ? `${(scoreNumber * 100).toFixed(1)}%`
+    : score;
+
+  const images = Array.isArray(hit?.images) ? hit.images : [];
 
   const imageUrl =
     hit?.subject?.imageUrl ||
@@ -80,6 +85,7 @@ const images = Array.isArray(hit?.images) ? hit.images : [];
     : primeraImagen;
 
   hitsImagenesMap[hit.id] = images;
+  const nivel = obtenerNivelScore(scoreNumber);
 
   const card = document.createElement('div');
   card.className = 'hit-card hit-card-new';
@@ -90,20 +96,29 @@ const images = Array.isArray(hit?.images) ? hit.images : [];
     <div class="hit-info">
       <strong>${nombre}</strong>
       <p>Cámara: ${camara}</p>
-      <p>Score Hit: ${Number(score).toFixed ? Number(score).toFixed(3) : score}</p>
+      <p>Confianza: ${scorePercent} (${nivel})</p>
 
       <div class="hit-actions">
 
-        <button class="btn-hit-img" onclick="abrirModalImagenesHit('${hit.id}')">
-          Ver imágenes
+        <button class="btn-hit subtle" onclick="abrirModalImagenesHit('${hit.id}')">
+          Imágenes
         </button>
 
-        <a href="/kardex/${subjectId}" target="_blank">Ver kardex</a>
+        <a href="/kardex/${subjectId}" target="_blank" class="btn-hit primary">
+          Kardex
+        </a>
+
       </div>
     </div>
   `;
 
   container.prepend(card);
+}
+
+function obtenerNivelScore(score) {
+  if (score >= 0.75) return 'ALTO';
+  if (score >= 0.55) return 'MEDIO';
+  return 'BAJO';
 }
 
 function manejarEstadoCamara(data) {
@@ -184,13 +199,13 @@ function pintarCamaras(camaras) {
             <i class="bi bi-fullscreen"></i>
           </button>
 
-          <!--
+          <!---->
           <button class="btn btn-sm btn-outline-danger"
             data-bs-toggle="tooltip"
             data-bs-title="Desconectar cámara"
             onclick="desconectarCamara('${camara.id}')">
             <i class="bi bi-power"></i>
-          </button>-->
+          </button>
 
           <button class="btn btn-sm btn-outline-success"
             data-bs-toggle="tooltip"
