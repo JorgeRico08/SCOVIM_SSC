@@ -10,7 +10,26 @@ const procesosFFmpeg = new Map<string, ChildProcessWithoutNullStreams>();
 const watchersCamara = new Map<string, NodeJS.Timeout>();
 const ultimoSegmentoCamara = new Map<string, number>();
 
-const camaras = [
+const total = Number(process.env.CAMARAS_TOTAL || 0);
+const camaras: any[] = [];
+
+for (let i = 1; i <= total; i++) {
+    const camara = {
+        id: process.env[`CAMARA_${i}_ID`],
+        nombre: process.env[`CAMARA_${i}_NOMBRE`],
+        rtsp: process.env[`CAMARA_${i}_RTSP`],
+        estado: Number(process.env[`CAMARA_${i}_ESTADO`])
+    };
+
+    if (!camara.id || !camara.nombre || !camara.rtsp) {
+        console.log('Error al cargar cámara', i);
+        continue;
+    }
+
+    camaras.push(camara);
+}
+
+/*const camaras = [
     {
         id: 'camara-01',
         nombre: 'Cámara 01',
@@ -33,7 +52,7 @@ const camaras = [
         nombre: 'Cámara 04',
         rtsp: 'rtsp://admin:admin1234.@192.168.1.13:554/unicast/c2/s2/live'
     }
-];
+];*/
 
 //const streamsIniciados = new Set<string>();
 
