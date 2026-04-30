@@ -1,3 +1,22 @@
+# =========================
+# BUILD STAGE
+# =========================
+FROM node:20-bullseye-slim AS build
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm ci
+
+COPY . .
+
+RUN npm run build
+
+
+# =========================
+# PRODUCTION STAGE
+# =========================
 FROM node:20-bullseye-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -6,10 +25,8 @@ ENV LC_ALL=es_MX.UTF-8
 ENV TZ=America/Mexico_City
 ENV NODE_ENV=production
 ENV PORT=3000
-ENV CONVERT_CONCURRENCY=1
 ENV FFMPEG_PATH=/usr/bin/ffmpeg
 
-# Paquetes del sistema + FFmpeg + locales
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
     locales \
@@ -19,29 +36,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && locale-gen \
     && rm -rf /var/lib/apt/lists/*
 
-# Usuario no-root
 RUN useradd -ms /bin/bash -u 10001 nodeuser
 
 WORKDIR /app
 
-RUN mkdir -p /tmp/lo-profile \
-    && chown -R nodeuser:nodeuser /app /tmp
+COPY package*.json ./
 
-COPY --chown=nodeuser:nodeuser package*.json ./
+RUN npm ci --omit=dev
 
-# Instala todas las deps para poder compilar TS
-RUN npm ci
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/src/views ./dist/views
+COPY --from=build /app/src/public ./dist/public
 
-COPY --chown=nodeuser:nodeuser . .
-
-# Compila TypeScript
-RUN npm run build
-
-# Borra devDependencies después del build
-RUN npm prune --omit=dev
+RUN chown -R nodeuser:nodeuser /app
 
 USER nodeuser
 
 EXPOSE 3000
 
-CMD ["node","dist/server.js"]
+CMD ["node", "dist/server.js"]

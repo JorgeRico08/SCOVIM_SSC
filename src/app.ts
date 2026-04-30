@@ -22,7 +22,7 @@ app.set('layout', 'shared/layout');
 app.use(expressLayouts);
 
 app.use('/public', express.static(path.join(process.cwd(), 'public')));
-//app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.get("/health", (_req, res) => {
     res.json({ ok: true });
