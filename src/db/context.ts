@@ -10,7 +10,7 @@ dotenv.config({
 
 console.log('ENV PATH:', path.resolve(process.cwd(), '.env'));
 console.log('DBGD_HOST:', process.env.DBGD_HOST);
-1
+
 // ── Types ─────────────────────────────────────────────────────────────
 type RequiredDbConfig = Pick<PoolConfig, 'host' | 'port' | 'database' | 'user'>;
 
